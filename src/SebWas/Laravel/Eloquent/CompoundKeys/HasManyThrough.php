@@ -12,7 +12,7 @@ class HasManyThrough extends HasManyThrough {
      *
      * @var string
      */
-	protected $outwardKey;
+    protected $outwardKey;
 
     /**
      * Create a new has many through relationship instance.
@@ -27,11 +27,11 @@ class HasManyThrough extends HasManyThrough {
      * @return void
      * @override
      */
-	public function __construct(Builder $query, Model $farParent, Model $parent, $firstKey, $secondKey, $localKey, $outwardKey){
-		$this->outwardKey = $outwardKey;
+    public function __construct(Builder $query, Model $farParent, Model $parent, $firstKey, $secondKey, $localKey, $outwardKey){
+        $this->outwardKey = $outwardKey;
 
-		parent::__construct($query, $farParent, $parent, $firstKey, $secondKey, $localKey);
-	}
+        parent::__construct($query, $farParent, $parent, $firstKey, $secondKey, $localKey);
+    }
 
     /**
      * Get the fully qualified parent key name.
@@ -39,9 +39,9 @@ class HasManyThrough extends HasManyThrough {
      * @return string
      * @override
      */
-	protected function getParentQualifiedKeyName(){
-		return $this->parent->getTable() . $this->outwardKey;
-	}
+    public function getQualifiedParentKeyName(){
+        return $this->parent->getTable().'.'.$this->outwardKey;
+    }
 
     /**
      * Find a related model by its primary key.

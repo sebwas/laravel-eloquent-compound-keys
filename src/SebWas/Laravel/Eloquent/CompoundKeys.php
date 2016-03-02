@@ -2,18 +2,18 @@
 
 namespace SebWas\Laravel\Eloquent;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 trait CompoundKeys {
-	/**
-	 * Qualifies a given key.
-	 *
-	 * @param  string $key
-	 * @return string
-	 */
-	public function qualifyKey(string $key){
-		return $this->getTable().'.'.$key;
-	}
+    /**
+     * Qualifies a given key.
+     *
+     * @param  string $key
+     * @return string
+     */
+    public function qualifyKey(string $key){
+        return $this->getTable().'.'.$key;
+    }
 
     /**
      * Set the keys for a save update query.
@@ -22,7 +22,7 @@ trait CompoundKeys {
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function setKeysForSaveQuery(Builder $query){
-    	$query->where($this->getKeyForSaveQuery());
+        $query->where($this->getKeyForSaveQuery());
 
         return $query;
     }
@@ -99,9 +99,9 @@ trait CompoundKeys {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null){
-    	$otherKey = $otherKey ?: with(new $related)->getForeignKey();
+        $foreignKey = $foreignKey ?: with(new $related)->getForeignKey();
 
-    	return parent::belongsTo($related, $foreignKey, $otherKey, $relation);
+        return parent::belongsTo($related, $foreignKey, $otherKey, $relation);
     }
 
     /**
@@ -199,7 +199,7 @@ trait CompoundKeys {
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function morphTo($name = null, $type = null, $id = null){
-    	// TODO
+        // TODO
     }
 
     /**
@@ -209,6 +209,6 @@ trait CompoundKeys {
      * @return int
      */
     public static function destroy($ids){
-    	// TODO
+        // TODO
     }
 }
