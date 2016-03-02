@@ -5,6 +5,16 @@ namespace SebWas\Laravel\Eloquent;
 use Illuminate\Database\Query\Builder;
 
 trait CompoundKeys {
+	/**
+	 * Qualifies a given key.
+	 *
+	 * @param  string $key
+	 * @return string
+	 */
+	public function qualifyKey(string $key){
+		return $this->getTable().'.'.$key;
+	}
+
     /**
      * Set the keys for a save update query.
      *

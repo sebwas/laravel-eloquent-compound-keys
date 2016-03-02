@@ -23,8 +23,14 @@ trait CompoundKeysRelationship {
 
 		$localKey = $localKey ?: $this->getKeyName();
 
-		$outwardKey = $outwardKey ?: $related->getForeignKey();
+		$throughUses = class_uses($through);
 
-		return new CompoundKeys\HasManyThrough(($related)->newQuery(), $this, $through, $firstKey, $secondKey, $localKey, $outwardKey);
+		if(isset($throughUses["SebWas\Laravel\Eloquent\CompoundKeys"])){
+			$outwardKey = $outwardKey ?: $related->getForeignKey();
+
+			return new CompoundKeys\HasManyThrough($related->newQuery(), $this, $through, $firstKey, $secondKey, $localKey, $outwardKey);
+		} else {
+			return new HasManyThrough($related->newQuery(), $this, $through, $firstKey, $secondKey, $localKey);
+		}
 	}
 }

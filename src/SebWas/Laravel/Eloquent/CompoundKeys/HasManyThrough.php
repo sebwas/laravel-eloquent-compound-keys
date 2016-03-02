@@ -2,6 +2,8 @@
 
 namespace SebWas\Laravel\Eloquent\CompoundKeys;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class HasManyThrough extends HasManyThrough {
@@ -40,4 +42,44 @@ class HasManyThrough extends HasManyThrough {
 	protected function getParentQualifiedKeyName(){
 		return $this->parent->getTable() . $this->outwardKey;
 	}
+
+    /**
+     * Find a related model by its primary key.
+     *
+     * @param  mixed  $id
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|null
+     */
+    public function find($id, $columns = ['*'])
+    {
+        if (is_array($id)) {
+            return $this->findMany($id, $columns);
+        }
+
+        $relatedKey = $this->getRelated()->qualifyKey($this->getParent()->getForeignKey());
+
+        $this->where($relatedKey, '=', $id);
+
+        return $this->first($columns);
+    }
+
+    /**
+     * Find multiple related models by their primary keys.
+     *
+     * @param  mixed  $ids
+     * @param  array  $columns
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findMany($ids, $columns = ['*'])
+    {
+        if (empty($ids)) {
+            return $this->getRelated()->newCollection();
+        }
+
+        $relatedKey = $this->getRelated()->qualifyKey($this->getParent()->getForeignKey());
+
+        $this->whereIn($relatedKey, $ids);
+
+        return $this->get($columns);
+    }
 }
