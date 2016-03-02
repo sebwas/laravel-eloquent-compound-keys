@@ -1,0 +1,30 @@
+{
+    "name": "sebwas/laravel-eloquent-compound-keys",
+    "description": "This helps using eloquent when using compound keys in the database",
+    "require": {
+        "laravel/framework": "^5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Wasser",
+            "email": "sebastian.wasser@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+
+    "autoload": {
+        "psr-4": {
+            "SebWas\\Laravel\\Eloquent\\": "src/SebWas/Laravel/Eloquent/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "SebWas\\Testing\\": "tests/"
+        }
+    }
+}
