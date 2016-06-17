@@ -4,9 +4,9 @@ namespace SebWas\Laravel\Eloquent\CompoundKeys;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough as BaseRelation;
 
-class HasManyThrough extends HasManyThrough {
+class HasManyThrough extends BaseRelation {
 	/**
 	 * The outward key on the relationship.
 	 *
@@ -24,7 +24,6 @@ class HasManyThrough extends HasManyThrough {
 	 * @param  string  $secondKey
 	 * @param  string  $localKey
 	 * @param  string  $outwardKey
-	 * @return void
 	 * @override
 	 */
 	public function __construct(Builder $query, Model $farParent, Model $parent, $firstKey, $secondKey, $localKey, $outwardKey){
@@ -40,7 +39,7 @@ class HasManyThrough extends HasManyThrough {
 	 * @override
 	 */
 	public function getQualifiedParentKeyName(){
-		return $this->parent->getTable().'.'.$this->outwardKey;
+		return $this->parent->getTable() . '.' . $this->outwardKey;
 	}
 
 	/**
